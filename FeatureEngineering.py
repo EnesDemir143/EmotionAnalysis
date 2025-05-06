@@ -1,3 +1,4 @@
+import numpy as np
 import gensim
 
 class FeatureEngineering:
@@ -17,6 +18,18 @@ class FeatureEngineering:
         self._create_vocab()
         self.word2vec.train(self.data, epochs=self.epoch, total_examples=self.word2vec.corpus_count)
         self.word2vec.save("word2vec_emotion_data.model")
+
+    def get_document_vectors(self, texts):
+        document_vectors = []
+
+        for text in texts:
+            words_vectors = [self.word2vec.wv[word] for word in text if word in self.word2vec.wv]
+            if words_vectors:
+                doc_vector = np.mean(words_vectors, axis=0)
+            else:
+                doc_vector = np.zeros(self.word2vec.vector_size)
+            document_vectors.append(doc_vector)
+        return document_vectors
 
     def __call__(self):
         self._train_model_save()
