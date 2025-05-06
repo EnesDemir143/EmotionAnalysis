@@ -24,3 +24,6 @@ class TextPreprocessing:
 
     def __call__(self):
         return self._preprocess_text()
+    
+if __name__ == '__main__':
+    pass

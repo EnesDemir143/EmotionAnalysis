@@ -10,4 +10,5 @@ class Dataset:
     def __call__(self):
         return self.dataset
 
-
+if __name__ == '__main__':
+    pass
